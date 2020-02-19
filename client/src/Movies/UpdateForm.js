@@ -4,11 +4,12 @@ const initialState = {
   title: "",
   director: "",
   metascore: "",
-  stars: ""
+  stars: []
 };
 
 const UpdateForm = props => {
   const [film, setFilm] = useState(initialState);
+  console.log(props.movies);
 
   useEffect(() => {
     const selectedMovie = props.movies.find(movie => {
@@ -16,7 +17,6 @@ const UpdateForm = props => {
     });
     if (selectedMovie) {
       setFilm(selectedMovie);
-      console.log(film);
     }
   }, []);
 
@@ -31,52 +31,67 @@ const UpdateForm = props => {
   const handleSubmit = e => {
     e.preventDefault();
     axios
-      .put(`/update-movie/${film.id}`, film)
+      .put(`http://localhost:5000/api/movies/${film.id}`, film)
       .then(res => {
-        console.log(res.data);
+        console.log(res);
+        props.movies[film.id] = res.data;
+        setFilm(initialState);
+        props.setMovies(props.movies);
+        // props.history.push("/");
       })
       .catch(err => {
         console.log(err);
       });
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="title"
-        onChange={changeHandler}
-        placeholder="title"
-        value={film.title}
-      />
+    <form className="form-card" onSubmit={handleSubmit}>
+      <div className="form-content">
+        <div>
+          <label htmlFor="title">Title:</label>
+          <input
+            type="text"
+            name="title"
+            onChange={changeHandler}
+            placeholder="title"
+            value={film.title}
+          />
+        </div>
+        <div>
+          <label htmlFor="director">Director:</label>
+          <input
+            type="text"
+            name="director"
+            onChange={changeHandler}
+            placeholder="Director"
+            value={film.director}
+          />
+        </div>
+        <div>
+          <label htmlFor="metascore">Metascore:</label>
+          <input
+            type="number"
+            name="metascore"
+            onChange={changeHandler}
+            placeholder="metascore"
+            value={film.metascore}
+          />
+        </div>
+      </div>
 
-      <input
-        type="text"
-        name="director"
-        onChange={changeHandler}
-        placeholder="Director"
-        value={film.director}
-      />
-
-      <input
-        type="number"
-        name="metascore"
-        onChange={changeHandler}
-        placeholder="metascore"
-        value={film.metascore}
-      />
-      {film.stars.map(star => {
+      {/* This is clearly not working because I don't have a good way of handling film.stars */}
+      {/* {film.stars.map(star => {
         return (
           <input
             type="string"
             name="stars"
             onChange={changeHandler}
             placeholder="stars"
-            value={star}
+            value={film.stars}
           />
         );
-      })}
+      })} */}
 
-      <button>Update</button>
+      <button className="update-button">Update</button>
     </form>
   );
 };

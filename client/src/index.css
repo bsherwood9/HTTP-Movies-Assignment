@@ -60,6 +60,25 @@ body {
   border: 1px solid grey;
   padding: 5px 10px;
   background-color: lightseagreen;
+  width: 70px;
+}
+.update-button {
+  position: absolute;
+  top: 65px;
+  right: 25px;
+  border: 1px solid grey;
+  padding: 5px 10px;
+  background-color: lightsalmon;
+  width: 70px;
+}
+.delete-button {
+  position: absolute;
+  top: 105px;
+  right: 25px;
+  border: 1px solid grey;
+  padding: 5px 10px;
+  background-color: lightcoral;
+  width: 70px;
 }
 .save-button:hover {
   background-color: green;
@@ -74,4 +93,24 @@ body {
 .movie-warning {
   color: red;
   text-align: center;
+}
+
+.form-card {
+  width: 75%;
+  background-color: #fff;
+  border: 0;
+  box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, 0.12),
+    0 2px 4px rgba(0, 0, 0, 0.24);
+  padding: 1rem;
+  cursor: pointer;
+  position: relative;
+  margin: 1rem auto;
+}
+
+.form-content > div {
+  padding: 10px;
+}
+
+.form-card > .update-button {
+  top: 25px;
 }
